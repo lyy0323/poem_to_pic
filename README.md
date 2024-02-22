@@ -14,10 +14,10 @@ Besides, you should have installed Chrome and a Chromedriver which relates to th
 
 ## Usage - Show different poems with the same background picture in browser
 1. Modify the parameters in `static/config.json`.
-2. Run `bg.py`, recommended in IDE.
+2. Run `bg.py`E.
 3. Turn to `http://127.0.0.1:5051/<poemID>`, in which `<poemID>` is the number of ID of poem on the website of Sinology Association, SJTU.
 4. You can turn to other poems by modifying the URL.
 
-## Usage - Import customized pictures
-1. Copy and paste your picture under `static/background`.
+## Usage - Import customized background pictures
+1. Copy and paste your background picture under `static/background`. Your picture would be recommended to be vertical.
 2. Modify the `background` parameter in `static/config.json`.
