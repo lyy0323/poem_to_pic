@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Poem-render</title>
+    <style>
+        #main{
+            position: absolute;
+            z-index: 3;
+            left: {{ font_size }}px;
+	        top: {{ h / 5 }}px;
+	        width: {{ max_width }}px;
+	        height: {{ h / 2 }}px;
+	        text-align: center
+        }
+        #ptitle{
+        }
+        {{ style_text }}
+    </style>
+    <script>
+        var html = document.documentElement;
+        html.style.fontSize = {{ font_size }} + "px";
+    </script>
+</head>
+<body>
+    <div id="bg" style="position: absolute; z-index: 1">
+      <img src="/static/background/{{ bg_name }}">
+    </div>
+    <div style="position: absolute; z-index: 2">
+      <img src="/static/background/{{ mask_name }}">
+    </div>
+    <div id="main">
+        <div id="ptitle" style="max-width: {{ max_width }}; font-weight: bold">
+            {{ tt | safe }}
+        </div>
+        <div id="pauthor" style="max-width: {{ max_width }}; margin: 0 0 0.5em 0">
+            {{ at }}
+        </div>
+        <div id="pcontent" style="max-width: {{ max_width }}">
+            {{ poemContent | safe }}
+        </div>
+    </div>
+</body>
+</html>
