@@ -1,14 +1,33 @@
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request, session
 from PIL import Image
 import requests
+import os
 
+Image.MAX_IMAGE_PIXELS = None
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '2413567'
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static/background/')
 
 
-@app.route('/<poemID>')
+@app.route('/<poemID>', methods=['GET', 'POST'])
 def index(poemID):
     config = json.loads(open('./static/config.json', 'r', encoding='utf-8').read())
+    if request.method == 'POST':
+        rq = dict(request.form)
+        if rq['类型'] == '选择既有图片':
+            if rq['既有图片']:
+                config['background'] = rq['既有图片']
+        elif rq['类型'] == '上传图片':
+            new_pic = request.files['上传图片']
+            if new_pic and allowed_file(new_pic.filename):
+                if rq.get('重命名'):
+                    filename = app.config['UPLOAD_FOLDER'] + rq['重命名'] + '.' + new_pic.filename.split('.')[-1]
+                    config['background'] = rq['重命名'] + '.' + new_pic.filename.split('.')[-1]
+                else:
+                    filename = app.config['UPLOAD_FOLDER'] + new_pic.filename
+                    config['background'] = new_pic.filename
+                new_pic.save(filename)
     img_src = './static/background/' + config['background']
     poem_raw = requests.get(config['guoxue_sjtu_url'] + 'api/poem/' + poemID).text.replace('\\n', '<br>').replace('#', '<tag>')
     if not poem_raw:
@@ -87,6 +106,18 @@ def index(poemID):
                            poemContent=poemContent,
                            bg_name=img_src.split('/')[-1],
                            mask_name='mask_' + str(sizes_inverse[img.size][0]) + '_' + str(sizes_inverse[img.size][1]) + '.png')
+
+
+@app.route('/submit/')
+def submit():
+    background_pics = set(os.listdir('./static/background')) - {'mask_2_3.png', 'mask_3_4.png', 'mask_9_16.png'}
+    return render_template('pic_submit.html', pic_=background_pics)
+
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'jfif', 'webp'}
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 if __name__ == '__main__':

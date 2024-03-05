@@ -21,7 +21,7 @@ def get_one(index, show=False):
     time.sleep(1)
     browser.get_screenshot_as_file(f'./output_image/{index}.png')
     img = Image.open(f'./output_image/{index}.png')
-    img_crop = img.crop(box=(8, 8, width - 8, height - 12))
+    img_crop = img.crop(box=(8, 8, width - 12, height - 12))
     img_crop.save(f'./output_image/{index}.png')
     # if show:
         # img.show()
