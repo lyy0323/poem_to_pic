@@ -28,7 +28,7 @@ let changeImageOrigin = function() {
 window.onload = function() {
     var submit = document.getElementById("post")
     submit.onclick = function() {
-    var poemid = '/' + document.getElementById('poemID').value
+    var poemid = '/render/' + document.getElementById('poemID').value
     var ch = document.getElementById('chooseOrigin').selectedOptions[0].text
     // if (ch == '上传图片') {
     //     var r = new FileReader()

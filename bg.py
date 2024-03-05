@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = '2413567'
 app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static/background/')
 
 
-@app.route('/<poemID>', methods=['GET', 'POST'])
+@app.route('/render/<poemID>', methods=['GET', 'POST'])
 def index(poemID):
     config = json.loads(open('./static/config.json', 'r', encoding='utf-8').read())
     if request.method == 'POST':
