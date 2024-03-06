@@ -3,21 +3,20 @@ A tool to change poems of guoxue_sjtu into pictures.
 
 ## Dependents
 Windows system.
-You should install the python packages needed.
+You should install the python packages needed, including `flask`, `pillow` and `selenium`.
 Besides, you should have installed Chrome and a Chromedriver which relates to the version of your Chrome.
 
-## Usage - Output picture directly
+## Usage - Output picture (local)
 1. Modify the parameters in `static/config.json`.
 2. Run `bg.py`, recommended in IDE.
 3. Run `capture.py` and wait for a few seconds.
 4. Look up for you picture in `output_image` directory.
 
-## Usage - Show different poems with the same background picture in browser
-1. Modify the parameters in `static/config.json`.
-2. Run `bg.py`.
-3. Turn to `http://127.0.0.1:5051/<poemID>`, in which `<poemID>` is the number of ID of poem on the website of Sinology Association, SJTU.
-4. You can turn to other poems by modifying the URL.
+## Usage - Render poem pictures with the same background picture in browser (local)
+1. Run `bg.py`.
+2. Turn to `http://127.0.0.1:5051/submit/`.
+3. Fill in the form and click `提交`. Note that you should click the button *after* the picture you've selected has been loaded.
+4. The result will be rendered in the page.
 
-## Usage - Import customized background pictures
-1. Copy and paste your background picture under `static/background`. Your picture would be recommended to be vertical.
-2. Modify the `background` parameter in `static/config.json`.
+## Usage - Online copy
+Address: `http://139.224.229.170:5051/submit/`
